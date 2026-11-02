@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chitkara Hostel Express - Late Night Campus Delivery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              500: '#e11d48',
+              600: '#e11d48',
+              700: '#be123c',
+              accent: '#f43f5e',
+              neon: '#fb7185'
+            },
+            dark: {
+              bg: '#0f172a',
+              card: '#1e293b',
+              border: '#334155'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+    .glass-panel {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-card:hover {
+      border-color: rgba(244, 63, 94, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px -10px rgba(225, 29, 72, 0.25);
+    }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col pb-24 md:pb-10">
+
+  <!-- Header Section -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="bg-gradient-to-br from-rose-500 to-rose-700 p-2.5 rounded-2xl shadow-lg shadow-rose-500/30 flex items-center justify-center">
+          <i class="fa-solid font-bold fa-bolt text-xl text-white"></i>
+        </div>
+        <div>
+          <h1 class="text-xl font-extrabold tracking-tight text-white flex items-center gap-1.5">
+            Chitkara <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-rose-600">Hostel Express</span>
+          </h1>
+          <p class="text-[11px] text-slate-400 font-medium flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+            10-15 Min Hostel Delivery | Total Orders: <span id="header-order-count" class="text-rose-400 font-bold">0</span>
+          </p>
+        </div>
+      </div>
+
+      <button id="cart-toggle-btn" class="relative bg-slate-800/80 hover:bg-slate-700 p-3 rounded-2xl border border-slate-700/60 transition flex items-center justify-center">
+        <i class="fa-solid fa-cart-shopping text-rose-400 text-lg"></i>
+        <span id="cart-badge" class="absolute -top-1.5 -right-1.5 bg-rose-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-slate-900 hidden">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Slider Banner Section with Permanent 10% Off Top Header -->
+  <section class="max-w-7xl mx-auto px-4 mt-4 w-full space-y-2">
+    <!-- Permanent Top Highlight Bar -->
+    <div class="bg-gradient-to-r from-rose-600 to-rose-700 rounded-2xl p-2.5 px-4 text-center shadow-lg shadow-rose-600/20 flex items-center justify-center gap-2 text-xs md:text-sm font-extrabold text-white">
+      <i class="fa-solid fa-fire animate-bounce"></i>
+      <span>SPECIAL OFFER: Get Instant 10% OFF on Orders Above ₹500!</span>
+      <i class="fa-solid fa-fire animate-bounce"></i>
+    </div>
+
+    <!-- Automatic & Interactive Carousel Slider (4 Seconds Interval + Touch/Mouse Drag) -->
+    <div id="slider-container" class="relative overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 shadow-xl select-none cursor-grab active:cursor-grabbing">
+      <div id="banner-slider" class="flex transition-transform duration-700 ease-in-out">
+        
+        <!-- Slide 1 (FIRST SHOW): Offer Banner (10% Off on ₹500+) -->
+        <div class="w-full flex-shrink-0 bg-gradient-to-r from-rose-900/40 via-purple-900/30 to-slate-900 p-5 md:p-8 border border-rose-500/30 rounded-3xl">
+          <div class="max-w-xl pointer-events-none">
+            <span class="bg-rose-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-2 shadow-lg">
+              🔥 MEGA SAVINGS OFFER
+            </span>
+            <h2 class="text-2xl md:text-3xl font-black text-white leading-tight">
+              Order ₹500+ & Get 10% OFF Instantly! 💸
+            </h2>
+            <p class="text-slate-200 text-xs md:text-sm mt-2 font-medium">
+              Make your cart value ₹500 or more and get an automatic 10% discount at checkout. Big savings on every order!
+            </p>
+          </div>
+        </div>
+
+        <!-- Slide 2: Normal Banner (Chitkara Cravings Direct Hostel Delivery) -->
+        <div class="w-full flex-shrink-0 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-5 md:p-8 border border-rose-500/10 rounded-3xl">
+          <div class="max-w-xl pointer-events-none">
+            <span class="bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-2">
+              ⚡ Campus Fast Delivery
+            </span>
+            <h2 class="text-2xl md:text-3xl font-black text-white leading-tight">
+              Chitkara Cravings - Direct Hostel Delivery! 🚀
+            </h2>
+            <p class="text-slate-300 text-xs md:text-sm mt-2 font-medium">
+              Maggi, Red Bull, Cold Drinks, Snacks & Stationary delivered directly to your hostel room or gate in 10-15 minutes!
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Slider Dots Indicator -->
+      <div class="absolute bottom-3 right-4 flex space-x-2 z-10">
+        <button onclick="goToSlide(0)" class="dot w-5 h-2 rounded-full bg-rose-500 transition-all duration-300 focus:outline-none"></button>
+        <button onclick="goToSlide(1)" class="dot w-2 h-2 rounded-full bg-slate-600 transition-all duration-300 focus:outline-none"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Request Banner -->
+  <section class="max-w-7xl mx-auto px-4 mt-4 w-full">
+    <div class="glass-panel p-4 rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/30 to-slate-900 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="bg-emerald-500/20 text-emerald-400 p-3 rounded-xl border border-emerald-500/30">
+          <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-white text-sm md:text-base">Can't find what you need? Request special items! 📦</h3>
+          <p class="text-xs text-slate-400">Need specific snacks, stationary, or custom items? Send your request directly.</p>
+        </div>
+      </div>
+      <button onclick="openCustomOrderModal()" class="w-full md:w-auto px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-emerald-600/20 transition flex items-center justify-center gap-2">
+        <i class="fa-solid fa-paper-plane"></i> Request Special Item
+      </button>
+    </div>
+  </section>
+
+  <!-- Categories Scroll Header -->
+  <section class="max-w-7xl mx-auto px-4 mt-6 w-full">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-base font-bold text-white flex items-center gap-2">
+        <i class="fa-solid fa-fire text-rose-500"></i> Categories
+      </h3>
+      <div class="relative w-48 md:w-64">
+        <input type="text" id="search-input" placeholder="Search items..." class="w-full bg-slate-800/80 border border-slate-700/80 rounded-xl px-3 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-rose-500">
+        <i class="fa-solid fa-magnifying-glass absolute right-3 top-2.5 text-slate-400 text-xs"></i>
+      </div>
+    </div>
+
+    <div class="flex space-x-2 overflow-x-auto hide-scrollbar pb-2" id="category-container"></div>
+  </section>
+
+  <!-- Product Grid -->
+  <main class="max-w-7xl mx-auto px-4 mt-4 flex-1 w-full">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5" id="product-grid"></div>
+  </main>
+
+  <!-- Footer Info -->
+  <footer class="mt-12 border-t border-slate-800 bg-slate-950/60 py-6 text-center text-xs text-slate-500">
+    <p class="font-medium text-slate-400">Chitkara University Hostel Express Delivery</p>
+    <p class="mt-1">Order Helpline / WhatsApp: +91 8432032432</p>
+  </footer>
+
+  <!-- CART SLIDE-OVER DRAWER -->
+  <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+    <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
+    
+    <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+      <div class="w-screen max-w-md bg-slate-900 border-l border-slate-800 text-slate-100 flex flex-col shadow-2xl">
+        <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
+          <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-bag-shopping text-rose-500 text-lg"></i>
+            <h3 class="font-bold text-lg text-white">Your Order</h3>
+          </div>
+          <button onclick="toggleCart()" class="text-slate-400 hover:text-white p-2">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-4 space-y-3" id="cart-items-container"></div>
+
+        <div class="p-4 border-t border-slate-800 bg-slate-950/80 space-y-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Your Name *</label>
+            <input type="text" id="checkout-name" placeholder="e.g. Mohit Swami" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Select Chitkara Hostel *</label>
+            <select id="checkout-hostel" onchange="toggleRoomField('checkout')" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+              <option value="">-- Choose Your Hostel --</option>
+              <option value="Archimedes (B) Hostel (Room Delivery)">Archimedes (B) Hostel (Room Delivery)</option>
+              <option value="Archimedes (A) Hostel (Hostel Gate Delivery)">Archimedes (A) Hostel (Hostel Gate Delivery)</option>
+              <option value="Marco Polo (Boys) Hostel (Hostel Gate Delivery)">Marco Polo (Boys) Hostel (Hostel Gate Delivery)</option>
+              <option value="Armstrong Hostel (Hostel Gate Delivery)">Armstrong Hostel (Hostel Gate Delivery)</option>
+              <option value="Magellan Hostel (Hostel Gate Delivery)">Magellan Hostel (Hostel Gate Delivery)</option>
+              <option value="Aristotal Hostel (Hostel Gate Delivery)">Aristotal Hostel (Hostel Gate Delivery)</option>
+              <option value="Franklin (A) Hostel (Hostel Gate Delivery)">Franklin (A) Hostel (Hostel Gate Delivery)</option>
+              <option value="Franklin (B) Hostel (Hostel Gate Delivery)">Franklin (B) Hostel (Hostel Gate Delivery)</option>
+              <option value="Alfred (A) Hostel (Hostel Gate Delivery)">Alfred (A) Hostel (Hostel Gate Delivery)</option>
+              <option value="Alfred (B) Hostel (Hostel Gate Delivery)">Alfred (B) Hostel (Hostel Gate Delivery)</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <!-- Room Field hidden by default, shown only for Archimedes B -->
+            <div id="checkout-room-container" class="hidden">
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Room No. *</label>
+              <input type="text" id="checkout-room" placeholder="e.g. 423" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+            </div>
+            <div id="checkout-phone-container" class="col-span-2">
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Phone Number (10 Digits) *</label>
+              <input type="tel" id="checkout-phone" maxlength="10" placeholder="e.g. 8432032432" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+            </div>
+          </div>
+
+          <!-- Payment Mode Selection -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Payment Method *</label>
+            <select id="checkout-payment-mode" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+              <option value="qr">Scan & Pay (UPI QR Code)</option>
+              <option value="direct">Direct App Pay (GPay / PhonePe / Paytm)</option>
+              <option value="cod">Cash on Delivery (COD)</option>
+            </select>
+          </div>
+
+          <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-1.5 text-xs">
+            <div class="flex justify-between text-slate-400">
+              <span>Item Total</span>
+              <span id="subtotal-amount">₹0</span>
+            </div>
+            <div id="discount-row" class="flex justify-between text-emerald-400 hidden">
+              <span>Offer 10% Off (₹500+)</span>
+              <span id="discount-amount">-₹0</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>Delivery Charge</span>
+              <span class="text-emerald-400 font-medium">FREE 🎉</span>
+            </div>
+            <div class="flex justify-between text-white font-bold text-sm pt-1 border-t border-slate-800">
+              <span>Grand Total</span>
+              <span id="total-amount" class="text-rose-400">₹0</span>
+            </div>
+          </div>
+
+          <button onclick="processOrder()" class="w-full py-3 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-bold text-sm rounded-xl shadow-lg shadow-rose-600/30 transition flex items-center justify-center gap-2">
+            <i class="fa-brands fa-whatsapp text-lg"></i> Proceed & Place Order
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPI QR MODAL -->
+  <div id="upi-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-sm w-full text-center space-y-4 shadow-2xl relative">
+      <button onclick="closeUpiModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="w-12 h-12 bg-rose-500/10 text-rose-400 rounded-2xl flex items-center justify-center mx-auto border border-rose-500/20">
+        <i class="fa-solid fa-qrcode text-xl"></i>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold text-white">Scan & Pay via UPI</h3>
+        <p class="text-xs text-slate-400 mt-0.5">Pay to Chitkara Express Representative</p>
+      </div>
+
+      <div class="bg-white p-3 rounded-2xl inline-block shadow-inner">
+        <img id="qr-code-img" src="" alt="UPI QR Code" class="w-44 h-44 mx-auto">
+      </div>
+
+      <div class="bg-slate-800/80 p-2.5 rounded-xl border border-slate-700 text-xs text-slate-300 font-mono flex items-center justify-between">
+        <span>UPI: mohitswami9875@oksbi</span>
+        <button onclick="copyUpi()" class="text-rose-400 font-sans text-[11px] font-bold hover:underline">Copy</button>
+      </div>
+
+      <div class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2 rounded-xl">
+        ⚠️ Please send payment screenshot on WhatsApp after paying!
+      </div>
+
+      <button onclick="confirmOrderWhatsApp()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition flex items-center justify-center gap-2">
+        <i class="fa-brands fa-whatsapp text-base"></i> Open WhatsApp & Confirm Order
+      </button>
+    </div>
+  </div>
+
+  <!-- DIRECT APP PAY MODAL -->
+  <div id="direct-upi-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-sm w-full text-center space-y-4 shadow-2xl relative">
+      <button onclick="closeDirectUpiModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto border border-emerald-500/20">
+        <i class="fa-solid fa-mobile-screen-button text-xl"></i>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold text-white">Pay via UPI Apps</h3>
+        <p class="text-xs text-slate-400 mt-0.5">Click to pay using GPay / PhonePe / Paytm</p>
+      </div>
+
+      <a id="direct-upi-link" href="#" target="_blank" class="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+        <i class="fa-solid fa-bolt"></i> Open UPI App & Pay ₹<span id="direct-pay-amount">0</span>
+      </a>
+
+      <div class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2 rounded-xl">
+        ⚠️ Please send payment screenshot on WhatsApp after paying!
+      </div>
+
+      <button onclick="confirmOrderWhatsApp()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition flex items-center justify-center gap-2">
+        <i class="fa-brands fa-whatsapp text-base"></i> Open WhatsApp & Confirm Order
+      </button>
+    </div>
+  </div>
+
+  <!-- CUSTOM REQUEST MODAL -->
+  <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-md w-full space-y-4 shadow-2xl relative">
+      <button onclick="closeCustomModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center border border-emerald-500/30">
+          <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">Custom Item Request</h3>
+          <p class="text-xs text-slate-400">Can't find it in the list? Send direct details!</p>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Your Name *</label>
+          <input type="text" id="custom-name" placeholder="e.g. Mohit Swami" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Select Hostel *</label>
+          <select id="custom-hostel" onchange="toggleRoomField('custom')" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+            <option value="">-- Choose Your Hostel --</option>
+            <option value="Archimedes (B) Hostel (Room Delivery)">Archimedes (B) Hostel (Room Delivery)</option>
+            <option value="Archimedes (A) Hostel (Hostel Gate Delivery)">Archimedes (A) Hostel (Hostel Gate Delivery)</option>
+            <option value="Marco Polo (Boys) Hostel (Hostel Gate Delivery)">Marco Polo (Boys) Hostel (Hostel Gate Delivery)</option>
+            <option value="Armstrong Hostel (Hostel Gate Delivery)">Armstrong Hostel (Hostel Gate Delivery)</option>
+            <option value="Magellan Hostel (Hostel Gate Delivery)">Magellan Hostel (Hostel Gate Delivery)</option>
+            <option value="Aristotal Hostel (Hostel Gate Delivery)">Aristotal Hostel (Hostel Gate Delivery)</option>
+            <option value="Franklin (A) Hostel (Hostel Gate Delivery)">Franklin (A) Hostel (Hostel Gate Delivery)</option>
+            <option value="Franklin (B) Hostel (Hostel Gate Delivery)">Franklin (B) Hostel (Hostel Gate Delivery)</option>
+            <option value="Alfred (A) Hostel (Hostel Gate Delivery)">Alfred (A) Hostel (Hostel Gate Delivery)</option>
+            <option value="Alfred (B) Hostel (Hostel Gate Delivery)">Alfred (B) Hostel (Hostel Gate Delivery)</option>
+          </select>
+        </div>
+
+        <!-- Room Field hidden by default for custom modal -->
+        <div id="custom-room-container" class="hidden">
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Room No. *</label>
+          <input type="text" id="custom-room" placeholder="e.g. 423" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Item Details *</label>
+          <textarea id="custom-items-text" rows="3" placeholder="Write items you need..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500"></textarea>
+        </div>
+      </div>
+
+      <button onclick="sendCustomDemandWhatsApp()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-emerald-600/20 transition flex items-center justify-center gap-2">
+        <i class="fa-brands fa-whatsapp text-base"></i> Send Request on WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- Bottom Floating Bar -->
+  <div class="fixed bottom-0 left-0 right-0 glass-panel border-t border-slate-800 p-3 md:hidden flex items-center justify-between z-30">
+    <div class="flex items-center space-x-2">
+      <div class="w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center">
+        <i class="fa-solid fa-cart-shopping text-xs"></i>
+      </div>
+      <div>
+        <span class="text-xs text-slate-400 block">Total Price</span>
+        <span id="bottom-bar-total" class="font-extrabold text-sm text-white">₹0</span>
+      </div>
+    </div>
+    <button onclick="toggleCart()" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-lg shadow-rose-600/30">
+      View Order <i class="fa-solid fa-chevron-right text-[10px]"></i>
+    </button>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const CONFIG = {
+      whatsappNumber: "918432032432",
+      upiId: "mohitswami9875@oksbi",
+      storeName: "Chitkara Hostel Express"
+    };
+
+    // PRODUCTS WITH LIVE STOCK MANAGEMENT
+    let PRODUCTS = [
+      { 
+        id: 1, 
+        name: "Bikaji Bhelpuri (110g)", 
+        category: "Snacks", 
+        price: 60, 
+        mrp: 50,
+        stock: 0,
+        badge: "Hostel Favorite", 
+        image: "https://www.bikaji.com/pub/media/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/1/0/10_-bhelpuri-mockup-front-_-top-sept-2023_-fop.png" 
+      },
+      { 
+        id: 2, 
+        name: "Diet Coke Can (300ml)", 
+        category: "Drinks", 
+        price: 65, 
+        mrp: 50,
+        stock: 0,
+        badge: "Drink", 
+        image: "https://fpsstore.in/cdn/shop/products/diet.jpg?v=1648203038" 
+      },
+      { 
+        id: 3, 
+        name: "Red Bull Energy Drink", 
+        category: "Drinks", 
+        price: 140, 
+        mrp: 125,
+        stock: 0,
+        badge: "Exam Fuel", 
+        image: "https://media.istockphoto.com/id/458716829/photo/red-bull.jpg?s=612x612&w=0&k=20&c=0CsBVsXdrA7PV1gkUF4VHBkPGh4Vtyq9uNJAMTQObBA=" 
+      },
+      { 
+        id: 4, 
+        name: "Monster Energy Drink (350ml)", 
+        category: "Drinks", 
+        price: 140, 
+        mrp: 125,
+        stock: 0,
+        badge: "High Energy", 
+        image: "https://media.istockphoto.com/id/592003544/photo/can-of-monster-energy-drink-isolated-on-white-background.jpg?s=170667a&w=0&k=20&c=hGEDvwl18DYwkWzc5sxGYLgJIdyAYtKwx8afTUi0rhA=" 
+      },
+      { 
+        id: 5, 
+        name: "Coca-Cola Zero Sugar (750ml)", 
+        category: "Drinks", 
+        price: 50, 
+        mrp: 40,
+        stock: 0,
+        badge: "Zero Sugar", 
+        image: "https://services.kpnfresh.com/media/v1/products/images/05682222-d068-4709-af87-5773d70b612f/cocacola-zero-sugar-bottle.webp?c_type=C2" 
+      },
+      { 
+        id: 6, 
+        name: "Thum's Up Bottle (1L)", 
+        category: "Drinks", 
+        price: 60, 
+        mrp: 50,
+        stock: 0,
+        badge: "Strong Taste", 
+        image: "http://www.starquik.com/cdn/shop/files/SQ113285_FOP_3166f06a-3086-42bf-af7c-92639f14b9f2.jpg?v=1776844407" 
+      },
+      { 
+        id: 7, 
+        name: "Bonn Atta Bread (400g)", 
+        category: "Snacks", 
+        price: 70, 
+        mrp: 60,
+        stock: 0,
+        badge: "Fresh", 
+        image: "https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/NI_CATALOG/IMAGES/ciw/2026/8/14/a42473e8-ce2a-4adf-a2eb-4a08e9901a30_8904474000424_b_wmrp_BK_da4925bf-cd2b-4374-94cc-867db0cf41db.jpg" 
+      },
+      { 
+        id: 8, 
+        name: "Bingo Tedhe Medhe (70g)", 
+        category: "Snacks", 
+        price: 30, 
+        mrp: 20,
+        stock: 0,
+        badge: "Crispy", 
+        image: "https://www.bbassets.com/media/uploads/p/l/40226709_12-bingo-tedhe-medhe-snacks-with-corn-rice-dal-masala-tadka.jpg" 
+      },
+      { 
+        id: 9, 
+        name: "Kurkure Masala Munch (94g)", 
+        category: "Snacks", 
+        price: 45, 
+        mrp: 35,
+        stock: 0,
+        badge: "Spicy", 
+        image: "https://www.bbassets.com/media/uploads/p/l/40068077_2-kurkure-namkeen-masala-munch.jpg" 
+      },
+      { 
+        id: 10, 
+        name: "Parle Hide & Seek (100g)", 
+        category: "Sweets", 
+        price: 40, 
+        mrp: 30,
+        stock: 0,
+        badge: "Choco Crunch", 
+        image: "https://www.bbassets.com/media/uploads/p/l/302121_15-parle-hide-seek-chocolate.jpg" 
+      },
+      { 
+        id: 11, 
+        name: "Britannia Bourbon (150g)", 
+        category: "Sweets", 
+        price: 50, 
+        mrp: 40,
+        stock: 0,
+        badge: "Classic", 
+        image: "https://www.quickpantry.in/cdn/shop/products/britannia-bourbon-chocolate-cream-biscuits-quick-pantry-2.jpg?v=1710538230" 
+      },
+      { 
+        id: 12, 
+        name: "Lays Chips (Blue 80g)", 
+        category: "Snacks", 
+        price: 60, 
+        mrp: 48,
+        stock: 0,
+        badge: "Popular", 
+        image: "https://www.bbassets.com/media/uploads/p/l/294281_13-lays-potato-chips-indias-magic-masala.jpg" 
+      },
+      { 
+        id: 13, 
+        name: "Lays Chips (Green 80g)", 
+        category: "Snacks", 
+        price: 60, 
+        mrp: 48,
+        stock: 0,
+        badge: "Popular", 
+        image: "https://www.bbassets.com/media/uploads/p/l/40203553_14-lays-potato-chips-american-style-cream-onion-flavour.jpg" 
+      },
+    ];
+
+    const CATEGORIES = ["All", "Snacks", "Drinks", "Sweets", "Gifts", "Stationary"];
+
+    let cart = {};
+    let selectedCategory = "All";
+    let searchQuery = "";
+    let lastGeneratedOrderDetails = null;
+
+    // Banner Slider State Variables
+    let currentSlideIndex = 0;
+    const totalSlideCount = 2;
+    let autoSlideInterval = null;
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Load saved stocks from localStorage if available
+      const savedStocks = localStorage.getItem("chitkara_product_stocks");
+      if (savedStocks) {
+        const parsed = JSON.parse(savedStocks);
+        PRODUCTS.forEach(p => {
+          if (parsed[p.id] !== undefined) p.stock = parsed[p.id];
+        });
+      }
+
+      renderCategories();
+      renderProducts();
+      setupSearch();
+      updateOrderCountDisplay();
+      initBannerSlider();
+    });
+
+    // Helper to toggle room field depending on whether Archimedes (B) is selected
+    function toggleRoomField(prefix) {
+      const hostelSelect = document.getElementById(`${prefix}-hostel`);
+      const roomContainer = document.getElementById(`${prefix}-room-container`);
+      const phoneContainer = document.getElementById(`${prefix}-phone-container`);
+      
+      const isArchimedesB = hostelSelect.value.includes("Archimedes (B)");
+
+      if (isArchimedesB) {
+        roomContainer.classList.remove("hidden");
+        if (phoneContainer) {
+          phoneContainer.classList.remove("col-span-2");
+        }
+      } else {
+        roomContainer.classList.add("hidden");
+        if (phoneContainer) {
+          phoneContainer.classList.add("col-span-2");
+        }
+      }
+    }
+
+    function saveStocksToStorage() {
+      const stockMap = {};
+      PRODUCTS.forEach(p => stockMap[p.id] = p.stock);
+      localStorage.setItem("chitkara_product_stocks", JSON.stringify(stockMap));
+    }
+
+    // Slider Initialization & Touch/Mouse Drag Logic
+    function initBannerSlider() {
+      const container = document.getElementById("slider-container");
+      startAutoSlide();
+
+      container.addEventListener("touchstart", (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      container.addEventListener("touchend", (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, { passive: true });
+
+      let isDragging = false;
+      container.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        touchStartX = e.clientX;
+      });
+
+      container.addEventListener("mouseup", (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        touchEndX = e.clientX;
+        handleSwipe();
+      });
+
+      container.addEventListener("mouseleave", () => {
+        isDragging = false;
+      });
+    }
+
+    function handleSwipe() {
+      const swipeDistance = touchEndX - touchStartX;
+      if (Math.abs(swipeDistance) > 40) {
+        if (swipeDistance < 0) nextSlide();
+        else prevSlide();
+      }
+    }
+
+    function updateSliderPosition() {
+      const slider = document.getElementById("banner-slider");
+      const dots = document.querySelectorAll(".dot");
+      slider.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+
+      dots.forEach((dot, idx) => {
+        if (idx === currentSlideIndex) {
+          dot.classList.remove("bg-slate-600", "w-2");
+          dot.classList.add("bg-rose-500", "w-5");
+        } else {
+          dot.classList.remove("bg-rose-500", "w-5");
+          dot.classList.add("bg-slate-600", "w-2");
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentSlideIndex = (currentSlideIndex + 1) % totalSlideCount;
+      updateSliderPosition();
+      resetAutoSlideTimer();
+    }
+
+    function prevSlide() {
+      currentSlideIndex = (currentSlideIndex - 1 + totalSlideCount) % totalSlideCount;
+      updateSliderPosition();
+      resetAutoSlideTimer();
+    }
+
+    function goToSlide(index) {
+      currentSlideIndex = index;
+      updateSliderPosition();
+      resetAutoSlideTimer();
+    }
+
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => {
+        currentSlideIndex = (currentSlideIndex + 1) % totalSlideCount;
+        updateSliderPosition();
+      }, 4000);
+    }
+
+    function resetAutoSlideTimer() {
+      clearInterval(autoSlideInterval);
+      startAutoSlide();
+    }
+
+    function updateOrderCountDisplay() {
+      // Global Total Orders Count
+      let count = localStorage.getItem("chitkara_global_order_count") || 0;
+      document.getElementById("header-order-count").innerText = count;
+    }
+
+    function renderCategories() {
+      const container = document.getElementById("category-container");
+      container.innerHTML = CATEGORIES.map(cat => `
+        <button onclick="setCategory('${cat}')" 
+          class="px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap ${
+            selectedCategory === cat 
+              ? 'bg-rose-600 text-white shadow-lg shadow-rose-600/30' 
+              : 'bg-slate-800/70 text-slate-400 hover:bg-slate-800 hover:text-white border border-slate-700/50'
+          }">
+          ${cat}
+        </button>
+      `).join("");
+    }
+
+    function setCategory(cat) {
+      selectedCategory = cat;
+      renderCategories();
+      renderProducts();
+    }
+
+    function setupSearch() {
+      document.getElementById("search-input").addEventListener("input", (e) => {
+        searchQuery = e.target.value.toLowerCase();
+        renderProducts();
+      });
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById("product-grid");
+      const filtered = PRODUCTS.filter(p => {
+        const matchesCategory = selectedCategory === "All" || p.category === selectedCategory;
+        const matchesSearch = p.name.toLowerCase().includes(searchQuery);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full text-center py-12 text-slate-500">
+            <i class="fa-solid fa-box-open text-3xl mb-2"></i>
+            <p class="text-xs">No products found. Use Special Request to order!</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(p => {
+        const qtyInCart = cart[p.id]?.qty || 0;
+        const isOutOfStock = p.stock <= 0;
+        const isLowStock = p.stock > 0 && p.stock <= 3;
+
+        return `
+          <div class="glass-card rounded-2xl overflow-hidden p-3 flex flex-col justify-between ${isOutOfStock ? 'opacity-60' : ''}">
+            <div>
+              <div class="relative h-28 w-full rounded-xl overflow-hidden mb-2.5 bg-slate-900 flex items-center justify-center p-1.5 border border-slate-800">
+                <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain object-center">
+                
+                ${isOutOfStock ? `
+                  <span class="absolute top-1.5 left-1.5 bg-red-600/90 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md shadow">
+                    Out of Stock
+                  </span>
+                ` : isLowStock ? `
+                  <span class="absolute top-1.5 left-1.5 bg-amber-500 text-slate-950 text-[10px] font-extrabold px-2 py-0.5 rounded-md animate-pulse">
+                    Only ${p.stock} left!
+                  </span>
+                ` : `
+                  <span class="absolute top-1.5 left-1.5 bg-slate-900/80 backdrop-blur-md text-rose-400 text-[10px] font-extrabold px-2 py-0.5 rounded-md border border-slate-700">
+                    ${p.badge}
+                  </span>
+                `}
+              </div>
+              <h4 class="font-bold text-xs text-white line-clamp-1">${p.name}</h4>
+              <div class="mt-1 flex items-baseline justify-between">
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-rose-400 font-extrabold text-sm">₹${p.price}</span>
+                  <span class="text-[11px] text-slate-400 line-through">MRP ₹${p.mrp}</span>
+                </div>
+                <span class="text-[10px] text-slate-400 font-medium">Stock: ${p.stock}</span>
+              </div>
+            </div>
+
+            <div class="mt-3">
+              ${isOutOfStock ? `
+                <button disabled class="w-full py-2 bg-slate-800/50 text-slate-500 font-bold text-xs rounded-xl border border-slate-800 cursor-not-allowed">
+                  Out of Stock
+                </button>
+              ` : qtyInCart === 0 ? `
+                <button onclick="addToCart(${p.id})" class="w-full py-2 bg-slate-800 hover:bg-rose-600 text-slate-200 hover:text-white font-bold text-xs rounded-xl border border-slate-700 hover:border-rose-500 transition flex items-center justify-center gap-1.5">
+                  <i class="fa-solid fa-plus text-[10px]"></i> Add To Order
+                </button>
+              ` : `
+                <div class="flex items-center justify-between bg-rose-600/20 border border-rose-500/40 rounded-xl p-1">
+                  <button onclick="updateQty(${p.id}, -1)" class="w-7 h-7 bg-rose-600 hover:bg-rose-500 text-white rounded-lg flex items-center justify-center text-xs font-bold">-</button>
+                  <span class="font-bold text-xs text-white px-2">${qtyInCart}</span>
+                  <button onclick="updateQty(${p.id}, 1)" class="w-7 h-7 bg-rose-600 hover:bg-rose-500 text-white rounded-lg flex items-center justify-center text-xs font-bold">+</button>
+                </div>
+              `}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function addToCart(id) {
+      const product = PRODUCTS.find(p => p.id === id);
+      if (!product || product.stock <= 0) return;
+      cart[id] = { product, qty: 1 };
+      updateCartUI();
+      renderProducts();
+    }
+
+    function updateQty(id, change) {
+      if (!cart[id]) return;
+      const product = cart[id].product;
+      const newQty = cart[id].qty + change;
+
+      if (newQty > product.stock) {
+        alert(`Sorry, only ${product.stock} items left in stock!`);
+        return;
+      }
+
+      cart[id].qty = newQty;
+      if (cart[id].qty <= 0) {
+        delete cart[id];
+      }
+      updateCartUI();
+      renderProducts();
+    }
+
+    function updateCartUI() {
+      const cartItems = Object.values(cart);
+      const totalCount = cartItems.reduce((acc, item) => acc + item.qty, 0);
+      const subtotal = cartItems.reduce((acc, item) => acc + (item.product.price * item.qty), 0);
+
+      let discount = 0;
+      if (subtotal >= 500) {
+        discount = Math.round(subtotal * 0.10);
+        document.getElementById("discount-row").classList.remove("hidden");
+        document.getElementById("discount-amount").innerText = `-₹${discount}`;
+      } else {
+        document.getElementById("discount-row").classList.add("hidden");
+      }
+
+      const finalTotal = subtotal - discount;
+
+      const badge = document.getElementById("cart-badge");
+      if (totalCount > 0) {
+        badge.innerText = totalCount;
+        badge.classList.remove("hidden");
+      } else {
+        badge.classList.add("hidden");
+      }
+
+      document.getElementById("subtotal-amount").innerText = `₹${subtotal}`;
+      document.getElementById("total-amount").innerText = `₹${finalTotal}`;
+      document.getElementById("bottom-bar-total").innerText = `₹${finalTotal}`;
+
+      const cartContainer = document.getElementById("cart-items-container");
+      if (cartItems.length === 0) {
+        cartContainer.innerHTML = `
+          <div class="text-center py-16 text-slate-500 space-y-2">
+            <i class="fa-solid fa-cart-flatbed text-4xl"></i>
+            <p class="text-xs">Your cart is empty. Add some snacks!</p>
+          </div>
+        `;
+      } else {
+        cartContainer.innerHTML = cartItems.map(item => `
+          <div class="bg-slate-800/60 p-3 rounded-2xl border border-slate-700/60 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <img src="${item.product.image}" class="w-12 h-12 rounded-xl object-contain bg-slate-900 p-1">
+              <div>
+                <h5 class="text-xs font-bold text-white">${item.product.name}</h5>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-rose-400 font-extrabold">₹${item.product.price * item.qty}</span>
+                  <span class="text-[10px] text-slate-400 line-through">MRP ₹${item.product.mrp * item.qty}</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2 bg-slate-900 px-2 py-1 rounded-xl border border-slate-700">
+              <button onclick="updateQty(${item.product.id}, -1)" class="text-slate-400 hover:text-white font-bold text-xs px-1.5">-</button>
+              <span class="text-xs font-bold text-white px-1">${item.qty}</span>
+              <button onclick="updateQty(${item.product.id}, 1)" class="text-slate-400 hover:text-white font-bold text-xs px-1.5">+</button>
+            </div>
+          </div>
+        `).join("");
+      }
+    }
+
+    function toggleCart() {
+      document.getElementById("cart-drawer").classList.toggle("hidden");
+    }
+
+    document.getElementById("cart-toggle-btn").addEventListener("click", toggleCart);
+
+    function processOrder() {
+      const cartItems = Object.values(cart);
+      if (cartItems.length === 0) {
+        alert("Please add items to cart first!");
+        return;
+      }
+
+      const name = document.getElementById("checkout-name").value.trim();
+      const hostel = document.getElementById("checkout-hostel").value;
+      const roomInput = document.getElementById("checkout-room");
+      const phone = document.getElementById("checkout-phone").value.trim();
+      const paymentMode = document.getElementById("checkout-payment-mode").value;
+
+      if (!name) { alert("Please enter your Name!"); return; }
+      if (!hostel) { alert("Please select your Hostel!"); return; }
+      
+      const isArchimedesB = hostel.includes("Archimedes (B)");
+      let room = "";
+      if (isArchimedesB) {
+        room = roomInput.value.trim();
+        if (!room) { alert("Please enter your Room Number!"); return; }
+      }
+      
+      if (!phone || phone.length !== 10 || !/^\d{10}$/.test(phone)) { 
+        alert("Please enter a valid 10-digit Phone Number!"); 
+        return; 
+      }
+
+      const subtotal = cartItems.reduce((acc, item) => acc + (item.product.price * item.qty), 0);
+      let discount = subtotal >= 500 ? Math.round(subtotal * 0.10) : 0;
+      const total = subtotal - discount;
+
+      lastGeneratedOrderDetails = { cartItems, name, hostel, room, phone, subtotal, discount, total, paymentMode };
+
+      if (paymentMode === "qr") {
+        const upiQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=${CONFIG.upiId}&pn=ChitkaraExpress&am=${total}&cu=INR`;
+        document.getElementById("qr-code-img").src = upiQrUrl;
+        document.getElementById("upi-modal").classList.remove("hidden");
+      } else if (paymentMode === "direct") {
+        const directDeepLink = `upi://pay?pa=${CONFIG.upiId}&pn=ChitkaraExpress&am=${total}&cu=INR`;
+        document.getElementById("direct-pay-amount").innerText = total;
+        document.getElementById("direct-upi-link").href = directDeepLink;
+        document.getElementById("direct-upi-modal").classList.remove("hidden");
+      } else if (paymentMode === "cod") {
+        confirmOrderWhatsApp();
+      }
+    }
+
+    function closeUpiModal() {
+      document.getElementById("upi-modal").classList.add("hidden");
+    }
+
+    function closeDirectUpiModal() {
+      document.getElementById("direct-upi-modal").classList.add("hidden");
+    }
+
+    function copyUpi() {
+      navigator.clipboard.writeText(CONFIG.upiId);
+      alert("UPI ID copied: " + CONFIG.upiId);
+    }
+
+    function confirmOrderWhatsApp() {
+      if (!lastGeneratedOrderDetails) return;
+
+      // Update Global Total Order Count
+      let currentGlobalCount = parseInt(localStorage.getItem("chitkara_global_order_count") || "0") + 1;
+      localStorage.setItem("chitkara_global_order_count", currentGlobalCount);
+      updateOrderCountDisplay();
+
+      // Deduct items from live stock & save
+      const { cartItems, name, hostel, room, phone, subtotal, discount, total, paymentMode } = lastGeneratedOrderDetails;
+      cartItems.forEach(item => {
+        const prod = PRODUCTS.find(p => p.id === item.product.id);
+        if (prod) {
+          prod.stock = Math.max(0, prod.stock - item.qty);
+        }
+      });
+      saveStocksToStorage();
+
+      let itemsFormatted = cartItems.map((item, i) => `${i + 1}. ${item.product.name} x ${item.qty} = ₹${item.product.price * item.qty} (MRP ₹${item.product.mrp * item.qty})`).join("\n");
+
+      let payText = "UPI QR Code (Screenshot attached)";
+      if (paymentMode === "direct") payText = "Direct UPI App Pay";
+      if (paymentMode === "cod") payText = "CASH ON DELIVERY 💵";
+
+      const isArchimedesB = hostel.includes("Archimedes (B)");
+      const deliveryInstruction = isArchimedesB 
+        ? "⚡ *Deliver directly to room! (Archimedes B)*" 
+        : "⚡ *Deliver to Hostel Gate! (Will pick up from gate)*";
+
+      let message = `🚀 *NEW ORDER #${currentGlobalCount} - CHITKARA HOSTEL EXPRESS*\n`;
+      message += `------------------------------------\n`;
+      message += `👤 *Name:* ${name}\n`;
+      message += `🏢 *Hostel:* ${hostel}\n`;
+      if (isArchimedesB && room) {
+        message += `🚪 *Room No:* ${room}\n`;
+      }
+      message += `📱 *Phone:* ${phone}\n`;
+      message += `💳 *Payment Mode:* ${payText}\n`;
+      message += `------------------------------------\n`;
+      message += `🛒 *ORDER ITEMS:*\n${itemsFormatted}\n`;
+      message += `------------------------------------\n`;
+      message += `📦 Item Total: ₹${subtotal}\n`;
+      if (discount > 0) {
+        message += `🔥 10% Off Applied: -₹${discount}\n`;
+      }
+      message += `💰 *FINAL BILL:* ₹${total} (FREE Delivery)\n`;
+      message += `------------------------------------\n`;
+      message += `${deliveryInstruction}`;
+
+      const waUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, "_blank");
+
+      // Reset local cart and re-render grid
+      cart = {};
+      updateCartUI();
+      renderProducts();
+      closeUpiModal();
+      closeDirectUpiModal();
+      toggleCart();
+    }
+
+    function openCustomOrderModal() {
+      document.getElementById("custom-modal").classList.remove("hidden");
+    }
+
+    function closeCustomModal() {
+      document.getElementById("custom-modal").classList.add("hidden");
+    }
+
+    function sendCustomDemandWhatsApp() {
+      const name = document.getElementById("custom-name").value.trim();
+      const hostel = document.getElementById("custom-hostel").value;
+      const roomInput = document.getElementById("custom-room");
+      const text = document.getElementById("custom-items-text").value.trim();
+
+      if (!name) { alert("Please enter your Name!"); return; }
+      if (!hostel) { alert("Please select your Hostel!"); return; }
+
+      const isArchimedesB = hostel.includes("Archimedes (B)");
+      let room = "";
+      if (isArchimedesB) {
+        room = roomInput.value.trim();
+        if (!room) { alert("Please enter your Room Number!"); return; }
+      }
+
+      if (!text) { alert("Please write what items you need!"); return; }
+
+      // Update Global Order Count for Custom Request
+      let currentGlobalCount = parseInt(localStorage.getItem("chitkara_global_order_count") || "0") + 1;
+      localStorage.setItem("chitkara_global_order_count", currentGlobalCount);
+      updateOrderCountDisplay();
+
+      const deliveryInstruction = isArchimedesB 
+        ? "⚡ *Room Delivery (Archimedes B)*" 
+        : "⚡ *Hostel Gate Delivery*";
+
+      let message = `📦 *CUSTOM ITEM REQUEST #${currentGlobalCount} - CHITKARA EXPRESS*\n`;
+      message += `------------------------------------\n`;
+      message += `👤 *Name:* ${name}\n`;
+      message += `🏢 *Hostel:* ${hostel}\n`;
+      if (isArchimedesB && room) {
+        message += `🚪 *Room No:* ${room}\n`;
+      }
+      message += `------------------------------------\n`;
+      message += `📝 *Requested Items:*\n${text}\n`;
+      message += `------------------------------------\n`;
+      message += `${deliveryInstruction}\n`;
+      message += `Please let me know if these items are available!`;
+
+      const waUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, "_blank");
+      closeCustomModal();
+    }
+  </script>
+</body>
+</html>
